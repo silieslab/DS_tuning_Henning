@@ -23,17 +23,17 @@ ________________________________________________
 ### Data/Data_Edges 
 --> processed_Data_SIMA_Cs5_sh.mat: contains the structure T4T5_mb
 	This structure contains all calcium imaging data from all cells recorded in a 		total of 14 flies (114 recordings) with the following fields: 	
-	- **Flyname**: date of recording, Fly ID, Image ID 
-	- **NROIs**: number of ROIs for T4 and T5 cells for each lobula plate layer 
-	- **Masks**: masks for each cell/ROI (T4/T5 axon terminal) 
-	- **Z**: tuning vector calculated after Mazurek 2014 
-	- **MAXdeg**: Preferred direction, based on maximal response amplitude
-	- **AV**: Average calcium image of the recoding (averaged across frames)
+* **Flyname**: date of recording, Fly ID, Image ID 
+* **NROIs**: number of ROIs for T4 and T5 cells for each lobula plate layer 
+* **Masks**: masks for each cell/ROI (T4/T5 axon terminal) 
+* **Z**: tuning vector calculated after Mazurek 2014 
+* **MAXdeg**: Preferred direction, based on maximal response amplitude
+* **AV**: Average calcium image of the recoding (averaged across frames)
 
 --> processed_Data_ROI_rf.mat: contains the structure T4T5_mb_new
 	This structure contains the receptive field locations for all cells (114 		recordings) with the following fields: 
-	- **RFCenter**: X and Y coordinates for the center of the neuron's receptive field 			based on back transformation of responses to 8 directions to the 			screen(see methods in the paper) 
-	- **CellID**
+* **RFCenter**: X and Y coordinates for the center of the neuron's receptive field 			based on back transformation of responses to 8 directions to the 			screen(see methods in the paper) 
+* **CellID**
 
 --> Turn_info.txt: Flyname, orientation to the screen (0, 45 or 90 deg), z-depth location
 
