@@ -22,7 +22,7 @@ ________________________________________________
 
 ### Data/Data_Edges 
 
-#### processed_Data_SIMA_Cs5_sh.mat: 
+#### --> processed_Data_SIMA_Cs5_sh.mat: 
 contains the structure T4T5_mb: This structure contains all calcium imaging data from all cells recorded in a total of 14 flies (114 recordings) with the following fields: 	
 * **Flyname**: date of recording, Fly ID, Image ID 
 * **NROIs**: number of ROIs for T4 and T5 cells for each lobula plate layer 
@@ -31,17 +31,17 @@ contains the structure T4T5_mb: This structure contains all calcium imaging data
 * **MAXdeg**: Preferred direction, based on maximal response amplitude
 * **AV**: Average calcium image of the recoding (averaged across frames)
 
-#### processed_Data_ROI_rf.mat:
+#### --> processed_Data_ROI_rf.mat:
 contains the structure T4T5_mb_new: This structure contains the receptive field locations for all cells (114 recordings) with the following fields: 
 * **RFCenter**: X and Y coordinates for the center of the neuron's receptive field 			based on back transformation of responses to 8 directions to the 			screen(see methods in the paper) 
 * **CellID**
 
-#### Turn_info.txt:
+#### --> Turn_info.txt:
 Flyname, orientation to the screen (0, 45 or 90 deg), z-depth location
 
 
 
-#### Snob_Cluster_Info.mat: 
+#### --> Snob_Cluster_Info.mat: 
 contains the structure ClusterR:
 * TA_T4: For T4 cells from Layer A: Class(Subtype) Identity from SNOB analysis, 		assigned based on highest probability of falling into one of the 			underlying distributions(see methods)
 *TA_T5: same for T5 cells from layer A, and so on 
