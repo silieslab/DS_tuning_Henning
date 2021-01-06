@@ -1,5 +1,20 @@
 % Find underlying distributions: Snob Analysis
 
+
+addpath(genpath('subscripts'))
+
+% Load preprocessed Data matrix
+Conditions.Control=load('Data/Data_Edges/processed_Data_SIMA_CS5_sh.mat');
+% Load text file with imaging conditins (e.g. z-depth and orientation to the screen)
+[fname,turn,Zdepth]=textread('Data/Data_Edges/Turn_info.txt','%s %f %f','headerlines',0,'delimiter','\t');
+
+for NF=1:size(Conditions.Control.T4T5_mb,2)
+    Conditions.Control.T4T5_mb(NF).turn=turn(NF);
+    Conditions.Control.T4T5_mb(NF).z_depth=Zdepth(NF);
+end
+
+
+Z = averageDirectionVectors(Conditions.Control.T4T5_mb);
 %% Linearize data 
 Data_A=angle([Z.T5A.ALL,Z.T4A.ALL])'; % here I can just use the scale from -pi to pi, because most neurons in that Layer will fall into that scale
 Data_B=convert_angle(angle([Z.T5B.ALL,Z.T4B.ALL]),'rad')';   % here I need to convert to a scale of 0 to 2pi 
