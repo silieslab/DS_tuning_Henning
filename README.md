@@ -17,6 +17,10 @@ Plots the ROIs back on to the average calcium image of the brain and color codes
 Plots the examples shown in the Manuscript, but changing the IMAGES to a range of [1:114] it will plot all examples. To do so, unzip PData folder.  
 
 
+### Plot_GlobalVSLocal_Tuning.m:
+Plots the compass plots as shown for one example in (**Fig. 2c,d,e**) for all flies. 
+Additionally plots the tuning distribution (std of angular preference) for each subtype as shown in (**Extended Data Fig.3**)
+
 ________________________________________________
 ## Data 
 
