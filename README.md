@@ -21,6 +21,17 @@ Plots the examples shown in the Manuscript, but changing the IMAGES to a range o
 Plots the compass plots as shown for one example in (**Fig. 2c,d,e**) for all flies. 
 Additionally plots the tuning distribution (std of angular preference) for each subtype as shown in (**Extended Data Fig.3**)
 
+
+### today_single_1ch_eni_CA_Kir_SIMA.m:
+script for automatic ROI selection of T4/T5 axon terminals based on their unique response properties to ON and OFF moving edges
+
+Saves: 
+* **CA_information_ManuallySelect** (contains information about the extracted ROIs that can be used for subsequent recordings to use ROI location 
+
+* ** *pData_SIMA_only_m.mat (contains a structure with all relevant imaging information and the extracted ROIs
+* * ch1: original imaging frames 
+* * ch1a_crop: cropped image 
+* * CLusterInfo_ManuallySelect: contains Clustering information (for each ROI the **Layer** identity, **T4_T5** identity, the average Response of each ROI to each direction of the stimulus, averaged across epochs (**avSignal1_CA**), background subtracted response for each stimulus direction (**dSignal1_CA**), **DSI**- and **CSI**-thresholds, the **masks** for each ROI, and the the Background from Otsu thresholding (**Real_Background**) 
 ________________________________________________
 ## Data 
 
