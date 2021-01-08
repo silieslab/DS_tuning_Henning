@@ -22,6 +22,10 @@ Plots the compass plots as shown for one example in (**Fig. 2c,d,e**) for all fl
 Additionally plots the tuning distribution (std of angular preference) for each subtype as shown in (**Extended Data Fig.3**)
 
 
+### Plot_DS_tuning_on_screen_stitched.m
+Plots the tuning maps for each T4\T5 subtype as shown in (**Fig. 4a**), Furthermore it plots the Receptive field locations of different subtypes for single flies as shown for one example in (**Extended Data Fig. 4d**) and the mean tuning vectors across 10deg wide bins from tuning maps of Fig 4 as shown in (**Extended Data Fig. 4e,f**)
+
+
 ### today_single_1ch_eni_CA_Kir_SIMA.m:
 script for automatic ROI selection of T4/T5 axon terminals based on their unique response properties to ON and OFF moving edges
 

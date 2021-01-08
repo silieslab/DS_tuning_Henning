@@ -16,7 +16,7 @@ addpath(genpath(Homepath))
 
 
 % CONSTANTS
-savein= 'Control';
+
 Condition='i_T4T5Rec_Control.*i_mb_movEdgesONOFF_optimized_8Dir.*i_responsivefly.*~moving.*i_PDATA_SIMA';
 
 % Define path where the pdata are saved (pdata for the whole data set can
