@@ -4,7 +4,7 @@ This repository contains data and code shown in the manuscript Henning et al., 2
 
 ## Code
 
-### explore_CA_DATA_DriftingEdges_8dir:
+### Plot_DS_tuning_Analysis_CompassPlots:
 Plots Tuning vectors of all recorded neurons in compass plots and histograms, also splits data from layer A and B into subtypes based on results from SNOB analysis (**Fig.1, Extended Data Fig.1**)
 
 
@@ -32,6 +32,16 @@ Saves:
 * * ch1: original imaging frames 
 * * ch1a_crop: cropped image 
 * * CLusterInfo_ManuallySelect: contains Clustering information (for each ROI the **Layer** identity, **T4_T5** identity, the average Response of each ROI to each direction of the stimulus, averaged across epochs (**avSignal1_CA**), background subtracted response for each stimulus direction (**dSignal1_CA**), **DSI**- and **CSI**-thresholds, the **masks** for each ROI, and the the Background from Otsu thresholding (**Real_Background**) 
+
+
+### explore_CA_DATA_DriftingEdge8Dir_sh.m:
+Collects data from PData structure for all recorded flies in one structure named: **processed_Data_SIMA_CS5**
+Calculates the tuning vectors *Z* for each cell
+
+
+
+
+
 ________________________________________________
 ## Data 
 
