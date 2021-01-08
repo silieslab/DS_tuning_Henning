@@ -32,7 +32,7 @@ script for automatic ROI selection of T4/T5 axon terminals based on their unique
 Saves: 
 * **CA_information_ManuallySelect** (contains information about the extracted ROIs that can be used for subsequent recordings to use ROI location 
 
-* ** *pData_SIMA_only_m.mat (contains a structure with all relevant imaging information and the extracted ROIs
+* **..pData_SIMA_only_m.mat** (contains a structure with all relevant imaging information and the extracted ROIs
 * * ch1: original imaging frames 
 * * ch1a_crop: cropped image 
 * * CLusterInfo_ManuallySelect: contains Clustering information (for each ROI the **Layer** identity, **T4_T5** identity, the average Response of each ROI to each direction of the stimulus, averaged across epochs (**avSignal1_CA**), background subtracted response for each stimulus direction (**dSignal1_CA**), **DSI**- and **CSI**-thresholds, the **masks** for each ROI, and the the Background from Otsu thresholding (**Real_Background**) 
@@ -42,13 +42,13 @@ Saves:
 Collects data from PData structure for all recorded flies in one structure named: **processed_Data_SIMA_CS5**
 Calculates the tuning vectors *Z* for each cell
 %Data structure with the following fields:
-%T4T5_mb(#Recording).Flyname= Identity of the recording;   
-%T4T5_mb(#Recording).NROIs= Number of ROIs for each layer identity
-%T4T5_mb(#Recording).Z= Tuning vector for each ROI
-%T4T5_mb(#Recording).Masks= Masks for each ROI;
-%T4T5_mb(#Recording).MAXdeg=Maximal response for each neuron and the direction it responded most to;
-%T4T5_mb(#Recording).AV= Average intensity projection of the LP_cropped version
-%T4T5_mb(#Recording).PixelSize= Size of the Pixel im microns;
+* T4T5_mb(#Recording).Flyname= Identity of the recording;   
+* T4T5_mb(#Recording).NROIs= Number of ROIs for each layer identity
+* T4T5_mb(#Recording).Z= Tuning vector for each ROI
+* T4T5_mb(#Recording).Masks= Masks for each ROI;
+* T4T5_mb(#Recording).MAXdeg=Maximal response for each neuron and the direction it responded most to;
+* T4T5_mb(#Recording).AV= Average intensity projection of the LP_cropped version
+* T4T5_mb(#Recording).PixelSize= Size of the Pixel im microns;
 
 
 
