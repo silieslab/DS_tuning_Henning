@@ -14,7 +14,7 @@ Finds underlying Gaussian distributions in the tuning data of neurons from each 
 
 ### Plot_ClassIdent_back_on_brain.m: 
 Plots the ROIs back on to the average calcium image of the brain and color codes them by subtype identity based on SNOB Analysis (**Figure 2, Extended Data Figure 2**)
-Plots the examples shown in the Manuscript, but changing the IMAGES to a range of [1:114] it will plot all examples. To do so, unzip PData folder.  
+Plots the examples shown in the Manuscript, but changing the IMAGES to a range of [1:114] it will plot all examples.
 
 
 ### Plot_GlobalVSLocal_Tuning.m:
@@ -37,6 +37,14 @@ Saves:
 ### explore_CA_DATA_DriftingEdge8Dir_sh.m:
 Collects data from PData structure for all recorded flies in one structure named: **processed_Data_SIMA_CS5**
 Calculates the tuning vectors *Z* for each cell
+%Data structure with the following fields:
+%T4T5_mb(#Recording).Flyname= Identity of the recording;   
+%T4T5_mb(#Recording).NROIs= Number of ROIs for each layer identity
+%T4T5_mb(#Recording).Z= Tuning vector for each ROI
+%T4T5_mb(#Recording).Masks= Masks for each ROI;
+%T4T5_mb(#Recording).MAXdeg=Maximal response for each neuron and the direction it responded most to;
+%T4T5_mb(#Recording).AV= Average intensity projection of the LP_cropped version
+%T4T5_mb(#Recording).PixelSize= Size of the Pixel im microns;
 
 
 

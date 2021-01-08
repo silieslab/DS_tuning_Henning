@@ -176,32 +176,26 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
     % Now plot the ROIs on the brain, if it is in the range of recordings
     % that are supposed to be plotted: Define above
     if sum(II == IMAGES)
-        clear P_data
-        P_data=load(['Data/Data_Edges/pdata/', IFly.Flyname]);
-        pause(10)  % used here, because otherwise matlab continues before loading the correct p_data is completed
-        if exist('P_data')
-            ch1a=P_data.strct.ch1a_crop;
-            AV = squeeze(sum(ch1a,3))/size(ch1a,3); % The average image
-            AV = im2double(AV);
-            AV = AV./max(AV(:));
-            
-            h3=figure;
-            image=imshow(AV,[],'InitialMagnification',600);
-            h3.Children.Title.String=[IFly.Flyname(1:12),'  Zdepth:',num2str(IFly.z_depth), '  turn:', num2str(IFly.turn)];
-            
-            hold on
-            hcllus=imshow(CMask,'InitialMagnification',600);%, 'Parent', h3.Children);
-            set(hcllus,'AlphaData',0.5);
-            h3.Children.Title.String=[IFly.Flyname(1:12),'  Zdepth:',num2str(IFly.z_depth), '  turn:', num2str(IFly.turn)];
-            
-            %add scale bar
-            PixelSize=str2num(P_data.strct.xml.micronsPerPixel.XAxis);
-            NumPixel= round(10/PixelSize);
-            [YS,XS]=size(AV);
-            XSt=XS-NumPixel-5; %to have the scale bar within the image
-            YSt=YS-5;
-            line([XSt XSt+NumPixel], [YSt YSt], 'Color', [1 1 1], 'LineWidth', 4 )
-        end
+        
+        AV = IFly.AV;
+        pause(5) 
+        h3=figure;
+        image=imshow(AV,[],'InitialMagnification',600);
+        h3.Children.Title.String=[IFly.Flyname(1:12),'  Zdepth:',num2str(IFly.z_depth), '  turn:', num2str(IFly.turn)];
+        
+        hold on
+        hcllus=imshow(CMask,'InitialMagnification',600);%, 'Parent', h3.Children);
+        set(hcllus,'AlphaData',0.5);
+        h3.Children.Title.String=[IFly.Flyname(1:12),'  Zdepth:',num2str(IFly.z_depth), '  turn:', num2str(IFly.turn)];
+        
+        %add scale bar
+        PixelSize=str2num(IFly.PixelSize);
+        NumPixel= round(10/PixelSize);
+        [YS,XS]=size(AV);
+        XSt=XS-NumPixel-5; %to have the scale bar within the image
+        YSt=YS-5;
+        line([XSt XSt+NumPixel], [YSt YSt], 'Color', [1 1 1], 'LineWidth', 4 )
+        
         
     end
 end
