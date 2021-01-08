@@ -39,16 +39,9 @@ Saves:
 
 
 ### explore_CA_DATA_DriftingEdge8Dir_sh.m:
-Collects data from PData structure for all recorded flies in one structure named: **processed_Data_SIMA_CS5**
+Collects data from PData structure for all recorded flies in one structure named: **processed_Data_SIMA_CS5_sh.mat** , for more information see Data
 Calculates the tuning vectors *Z* for each cell
-%Data structure with the following fields:
-* T4T5_mb(#Recording).Flyname= Identity of the recording;   
-* T4T5_mb(#Recording).NROIs= Number of ROIs for each layer identity
-* T4T5_mb(#Recording).Z= Tuning vector for each ROI
-* T4T5_mb(#Recording).Masks= Masks for each ROI;
-* T4T5_mb(#Recording).MAXdeg=Maximal response for each neuron and the direction it responded most to;
-* T4T5_mb(#Recording).AV= Average intensity projection of the LP_cropped version
-* T4T5_mb(#Recording).PixelSize= Size of the Pixel im microns;
+
 
 
 
@@ -67,6 +60,7 @@ contains the structure T4T5_mb: This structure contains all calcium imaging data
 * **Z**: tuning vector calculated after Mazurek 2014 
 * **MAXdeg**: Preferred direction, based on maximal response amplitude
 * **AV**: Average calcium image of the recoding (averaged across frames)
+* **PixelSize**: Size of the Pixel im microns
 
 #### --> processed_Data_ROI_rf.mat:
 contains the structure T4T5_mb_new: This structure contains the receptive field locations for all cells (114 recordings) with the following fields: 
