@@ -1,4 +1,4 @@
-function [F1,F2, F3]=CircHist_8dirsEdge_sh(cond)
+function [F2, F3]=CircHist_8dirsEdge_sh(cond)
 %%
 %% Plot the circular histogram (Figure 1b):
 nbins= 72;
@@ -121,7 +121,7 @@ currobj.drawArrow(currobj.avgAng, currobj.r * range(rl), 'HeadWidth', 10, 'LineW
 
 end 
 
-
+F3.Renderer='Painters';
 %% Compass plots for each subtype (Extended Data figure d)
 % separat for T4 and T5
 

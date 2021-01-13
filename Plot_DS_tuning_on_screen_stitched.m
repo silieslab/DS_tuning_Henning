@@ -217,7 +217,7 @@ name_before='no';
  Quiver_T5B_all_s=Quiver_T5B_all/C;
  Quiver_T5C_all_s=Quiver_T5C_all/C;
  Quiver_T5D_all_s=Quiver_T5D_all/C;
- 
+ Quiver_Try=10; 
 
 %% Neurons in Layer A and B seem to have two subpopulation: Cluster Data 
 
@@ -247,7 +247,8 @@ axis('equal')
 set(gca,'XLim', [-34,44+2*45])
 set(gca,'YLim', [-17,36])
 title(['subtype A.I'])
-
+hold on 
+quiver(20,120,imag(Quiver_Try),real(Quiver_Try), 'AutoScale','off')
 
 subplot(2,3,2)
 quiver(Coord_T5A_all(2,TA_T5==1)-34,Coord_T5A_all(1,TA_T5==1)+36,real(Quiver_T5A_all_s(TA_T5==1)),imag(Quiver_T5A_all_s(TA_T5==1)), 'AutoScale','off')
@@ -477,13 +478,13 @@ AverTuning_C=nan(1,length(horizontal_steps));
 for Ni=1:length(horizontal_steps)
          
     N_hsteps = horizontal_steps(Ni); 
-    COORDi_T5=Coord_T5C_all(2,TC_T5==1)-34;
+    COORDi_T5=Coord_T5C_all(2,~(TC_T5==2))-34;
     INDI_T5=find((COORDi_T5>= N_hsteps).* (COORDi_T5< N_hsteps+5)); 
-    Quiveri_T5=Quiver_T5C_all_s(TC_T5==1); 
+    Quiveri_T5=Quiver_T5C_all_s(~(TC_T5==2)); 
     
-    COORDi_T4=Coord_T4C_all(2,TC_T4==1)-34;
+    COORDi_T4=Coord_T4C_all(2,~(TC_T4==2))-34;
     INDI_T4=find((COORDi_T4>= N_hsteps).* (COORDi_T4< N_hsteps+5)); 
-    Quiveri_T4=Quiver_T4C_all_s(TC_T4==1); 
+    Quiveri_T4=Quiver_T4C_all_s(~(TC_T4==2)); 
     
     Quiverav=nanmean([Quiveri_T5(INDI_T5),Quiveri_T4(INDI_T4)]); 
     
@@ -702,13 +703,13 @@ AverTuning_C=nan(1,length(horizontal_steps));
 for Ni=1:length(horizontal_steps)
          
     N_hsteps = horizontal_steps(Ni); 
-    COORDi_T5=Coord_T5C_all(1,TC_T5==1)+36;
+    COORDi_T5=Coord_T5C_all(1,~(TC_T5==2))+36;
     INDI_T5=find((COORDi_T5>= N_hsteps).* (COORDi_T5< N_hsteps+5)); 
-    Quiveri_T5=Quiver_T5C_all_s(TC_T5==1); 
+    Quiveri_T5=Quiver_T5C_all_s(~(TC_T5==2)); 
     
-    COORDi_T4=Coord_T4C_all(1,TC_T4==1)+36;
+    COORDi_T4=Coord_T4C_all(1,~(TC_T5==2))+36;
     INDI_T4=find((COORDi_T4>= N_hsteps).* (COORDi_T4< N_hsteps+5)); 
-    Quiveri_T4=Quiver_T4C_all_s(TC_T4==1); 
+    Quiveri_T4=Quiver_T4C_all_s(~(TC_T5==2)); 
     
     Quiverav=nanmean([Quiveri_T5(INDI_T5),Quiveri_T4(INDI_T4)]); 
     

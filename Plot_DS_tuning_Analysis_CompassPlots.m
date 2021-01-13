@@ -42,7 +42,7 @@ Average=false;
 %% Figure 1b,c and Extended Data Figure 1d: Circular Histogram, 
 
     
-[F3,F4,F5]=CircHist_8dirsEdge_sh(ConditionI);
+[F4,F5]=CircHist_8dirsEdge_sh(ConditionI);
 
 
 
