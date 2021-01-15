@@ -382,7 +382,7 @@ for iFLY=1:length(f_mb_T4T5) % for each Fly
                     
                 end
                 
-                if XDIM<15 && YDIM<15
+                if XDIM<15 && YDIM<15 % only include neurons with a receptive field (RF) size smaller, as bigger RFs hint towards unprecise mesure of the RF center
                     curColor = CurrColMap(Col_steps(k),:);
                     curMask = cat(3,curColor(1).*maski,curColor(2).*maski,curColor(3).*maski);
                     
