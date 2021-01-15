@@ -5,7 +5,7 @@
 % (big data set shown in the paper Henning et al., 2021)
 
 %--> calculates the tuning vector Z for each cell
-%--> plots average responses across flies
+
 %--> saves Data on server in subfolders
 %%%%%%%%%%%%%%
 

@@ -1,6 +1,6 @@
 
 %%%%%%%%%%%%%%
-% This skript plots all figures shown in Figure3
+% This skript plots all figures shown in Figure4
 %%%%%%%%%%%%%%
 
 addpath(genpath('subscripts'))

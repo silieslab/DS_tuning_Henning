@@ -41,4 +41,6 @@ i_responsivefly = (responsivefly == 1);
 
 % Driver Line / Genotype
 i_T4T5Rec_Control =strcmpi('w+_R59E08lexA-homo>>GCaMP6f',driver);
+i_T4T5Rec_Kir_Control = strcmpi('R59E08lexA>>GCaMP6f_UASKirControl',driver);
+i_T4T5Rec_LayerControl =strcmpi('w+_R59E08lexA-homo>>GCaMP6f_LayerControl',driver);
 
