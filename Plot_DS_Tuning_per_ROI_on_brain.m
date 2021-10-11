@@ -334,3 +334,198 @@ for i=1:length(HIT)
     
 end
 
+
+%% Plot tuning with respect to quantifyied position- proximal vs. distal
+
+for i=1:length(HIT) %do this just for one example fly
+    
+    IFly=Control_Bright.T4T5_mb(HIT(i));
+    IFly2=Control_Dark.T4T5_mb(HIT(i)); 
+    
+    Tuning_T4_A=[];
+    X_axis_pos_T4_A=[];
+    for ii=1:length(IFly.Masks.T4A)
+            Tuning_T4_A=[Tuning_T4_A,angle(IFly.Z.T4A(ii))]; 
+            [~,X]=find(IFly.Masks.T4A{1,ii});
+            X_axis_pos_T4_A=[X_axis_pos_T4_A,mean(X)];
+    end
+    
+ 
+   Tuning_T4_B=[];
+    X_axis_pos_T4_B=[];
+    for ii=1:length(IFly.Masks.T4B)
+            Tuning_T4_B=[Tuning_T4_B,angle(IFly.Z.T4B(ii))]; 
+            [~,X]=find(IFly.Masks.T4B{1,ii});
+            X_axis_pos_T4_B=[X_axis_pos_T4_B,mean(X)];
+    end
+    
+    
+    Tuning_T4_C=[];
+    X_axis_pos_T4_C=[];
+    for ii=1:length(IFly.Masks.T4C)
+            Tuning_T4_C=[Tuning_T4_C,angle(IFly.Z.T4C(ii))]; 
+            [~,X]=find(IFly.Masks.T4C{1,ii});
+            X_axis_pos_T4_C=[X_axis_pos_T4_C,mean(X)];
+    end
+    
+ 
+   Tuning_T4_D=[];
+    X_axis_pos_T4_D=[];
+    for ii=1:length(IFly.Masks.T4D)
+            Tuning_T4_D=[Tuning_T4_D,angle(IFly.Z.T4D(ii))]; 
+            [~,X]=find(IFly.Masks.T4D{1,ii});
+            X_axis_pos_T4_D=[X_axis_pos_T4_D,mean(X)];
+    end
+    
+%%    
+    Tuning_T5_A=[];
+    X_axis_pos_T5_A=[];
+    for ii=1:length(IFly2.Masks.T5A)
+            Tuning_T5_A=[Tuning_T5_A,angle(IFly2.Z.T5A(ii))]; 
+            [~,X]=find(IFly2.Masks.T5A{1,ii});
+            X_axis_pos_T5_A=[X_axis_pos_T5_A,mean(X)];
+    end
+    
+ 
+   Tuning_T5_B=[];
+    X_axis_pos_T5_B=[];
+    for ii=1:length(IFly2.Masks.T5B)
+            Tuning_T5_B=[Tuning_T5_B,angle(IFly2.Z.T5B(ii))]; 
+            [~,X]=find(IFly2.Masks.T5B{1,ii});
+            X_axis_pos_T5_B=[X_axis_pos_T5_B,mean(X)];
+    end
+    
+    
+    Tuning_T5_C=[];
+    X_axis_pos_T5_C=[];
+    for ii=1:length(IFly2.Masks.T5C)
+            Tuning_T5_C=[Tuning_T5_C,angle(IFly2.Z.T5C(ii))]; 
+            [~,X]=find(IFly2.Masks.T5C{1,ii});
+            X_axis_pos_T5_C=[X_axis_pos_T5_C,mean(X)];
+    end
+    
+ 
+   Tuning_T5_D=[];
+    X_axis_pos_T5_D=[];
+    for ii=1:length(IFly2.Masks.T5D)
+            Tuning_T5_D=[Tuning_T5_D,angle(IFly2.Z.T5D(ii))]; 
+            [~,X]=find(IFly2.Masks.T5D{1,ii});
+            X_axis_pos_T5_D=[X_axis_pos_T5_D,mean(X)];
+    end
+
+    
+    Tuning_T4_A=convert_angle(Tuning_T4_A);
+    Tuning_T4_B=convert_angle(Tuning_T4_B);
+    Tuning_T4_C=convert_angle(Tuning_T4_C);
+    Tuning_T4_D=convert_angle(Tuning_T4_D);
+    
+      
+    Tuning_T5_A=convert_angle(Tuning_T5_A);
+    Tuning_T5_B=convert_angle(Tuning_T5_B);
+    Tuning_T5_C=convert_angle(Tuning_T5_C);
+    Tuning_T5_D=convert_angle(Tuning_T5_D);
+
+
+    
+end 
+
+
+
+
+%Load P-data for PixelResolution
+load(['/Volumes/SILIESLAB/MiriH/2p-imaging/Raw_Data/Miriam_pData/',IFly.Flyname])
+PixelSI=str2num(strct.xml.micronsPerPixel.XAxis);
+Deg_cat=1:360/64:360;
+
+%now with tuning color
+figure 
+subplot(2,2,1)
+X_axis_pos_T4_AmM=(X_axis_pos_T4_A-min([X_axis_pos_T4_A,X_axis_pos_T5_A]))*PixelSI;
+X_axis_pos_T5_AmM=(X_axis_pos_T5_A-min([X_axis_pos_T4_A,X_axis_pos_T5_A]))*PixelSI;
+
+for NC=1:length(X_axis_pos_T4_AmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T4_A(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T4_AmM(NC),Tuning_T4_A(NC), [], Colori)
+    hold on
+end 
+hold on 
+
+for NC=1:length(X_axis_pos_T5_AmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T5_A(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T5_AmM(NC),Tuning_T5_A(NC), [], Colori)
+    hold on
+end 
+title('LayerA')
+set(gca, 'Ylim', [10 70])
+
+
+
+X_axis_pos_T4_BmM=(X_axis_pos_T4_B-min([X_axis_pos_T4_B,X_axis_pos_T5_B]))*PixelSI;
+X_axis_pos_T5_BmM=(X_axis_pos_T5_B-min([X_axis_pos_T4_B,X_axis_pos_T5_B]))*PixelSI;
+
+
+subplot(2,2,2)
+for NC=1:length(X_axis_pos_T4_BmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T4_B(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T4_BmM(NC),Tuning_T4_B(NC), [], Colori)
+    hold on
+end 
+
+for NC=1:length(X_axis_pos_T5_BmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T5_B(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T5_BmM(NC),Tuning_T5_B(NC), [], Colori)
+    hold on
+end
+title('LayerB')
+set(gca, 'Ylim', [190 250])
+
+
+subplot(2,2,3)
+
+X_axis_pos_T4_CmM=(X_axis_pos_T4_C-min([X_axis_pos_T4_C,X_axis_pos_T5_C]))*PixelSI;
+X_axis_pos_T5_CmM=(X_axis_pos_T5_C-min([X_axis_pos_T4_C,X_axis_pos_T5_C]))*PixelSI;
+
+for NC=1:length(X_axis_pos_T4_CmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T4_C(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T4_CmM(NC),Tuning_T4_C(NC), [], Colori)
+    hold on
+end
+
+for NC=1:length(X_axis_pos_T5_CmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T5_C(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T5_CmM(NC),Tuning_T5_C(NC), [], Colori)
+    hold on
+end
+title('LayerC')
+set(gca, 'Ylim', [80 140])
+
+
+subplot(2,2,4)
+
+X_axis_pos_T4_DmM=(X_axis_pos_T4_D-min([X_axis_pos_T4_D,X_axis_pos_T5_D]))*PixelSI;
+X_axis_pos_T5_DmM=(X_axis_pos_T5_D-min([X_axis_pos_T4_D,X_axis_pos_T5_D]))*PixelSI;
+
+for NC=1:length(X_axis_pos_T4_DmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T4_D(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T4_DmM(NC),Tuning_T4_D(NC), [], Colori)
+    hold on
+end
+
+for NC=1:length(X_axis_pos_T5_DmM)
+    [~, Pos]=min(abs(Deg_cat-Tuning_T5_D(NC)));
+    Colori=cmap(Pos,:);
+    scatter(X_axis_pos_T5_DmM(NC),Tuning_T5_D(NC), [], Colori)
+    hold on
+end
+title('LayerD')
+set(gca, 'Ylim', [250 310])
+
+
+

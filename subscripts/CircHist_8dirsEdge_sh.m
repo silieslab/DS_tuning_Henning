@@ -1,9 +1,14 @@
-function [F2, F3]=CircHist_8dirsEdge_sh(cond)
-%%
+function [F2, F3]=CircHist_8dirsEdge_sh(cond,Range)
+
 %% Plot the circular histogram (Figure 1b):
 nbins= 72;
 
-Z=averageDirectionVectors(cond.T4T5_mb);
+if nargin>1
+    Z=averageDirectionVectors(cond.T4T5_mb(Range));
+else
+    Z=averageDirectionVectors(cond.T4T5_mb);
+end
+
 Z_All_A=[Z.T4A.ALL,Z.T5A.ALL];
 Z_All_B=[Z.T4B.ALL,Z.T5B.ALL];
 Z_All_C=[Z.T4C.ALL,Z.T5C.ALL];
@@ -36,10 +41,13 @@ currobj.avgAngH.LineStyle = '--'; % make average-angle line dashed
 currobj.avgAngH.LineWidth = 1; % make average-angle line thinner
 currobj.colorAvgAng = [.5 .5 .5]; % change average-angle line color
 % remove offset between bars and plot-center
-rl = rlim; % get current limits
-currobj.setRLim([-20, 100]); % set lower limit to 0
-% draw circle at r == 0.5 (where r == 1 would be the outer plot edge)
+if nargin>1
+    currobj.setRLim([-2, 10]); 
+else    
+    currobj.setRLim([-20, 100]); 
+end
 rl = rlim;
+% draw circle at r == 0.5 (where r == 1 would be the outer plot edge)
 % obj1.drawCirc((rl(2) - rl(1)) /2, '--b', 'LineWidth', 2)
 currobj.scaleBarSide = 'right'; % draw rho-axis on the right side of the plot
 currobj.polarAxs.ThetaZeroLocation = 'right'; % rotate the plot to have 0� on the right side
@@ -70,6 +78,7 @@ TD_T4=ClusterR.TD_T4;
 
 %% Plot the circular histogram for each subtype (Figure 1c):
 % all subplots were later merged in illustrator 
+if nargin==1
 
 F3=figure('Position', [200 200 900 900]);
 subAx1 = subplot(3, 2, 1, polaraxes);
@@ -412,6 +421,7 @@ L.Position(2)=0.87;
 
 
 F7.Renderer='Painters';
-
-
+else 
+   F3=[];
+end
 end 

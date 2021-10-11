@@ -1,6 +1,6 @@
 %%%%%%%%%%%%%%
-% This script plots tuning maps shown in Figure4 and Extebded Data Fig. 4
-% d-f 
+% This script plots tuning maps shown in Figure5 and Extebded Data Fig. 5
+% d-f , as well as single fly data shown in Figure 2
 %%%%%%%%%%%%%% 
 
 addpath(genpath('subscripts'))
@@ -30,7 +30,7 @@ load('MyColormap.mat')
 
 
  %%
-  % Now Plot quiver plots 
+  % Get data
  Quiver_T4A_all=[]; Quiver_T5A_all=[];
  Coord_T4A_all=[];  Coord_T5A_all=[];
  Quiver_T4B_all=[]; Quiver_T5B_all=[];
@@ -55,7 +55,20 @@ load('MyColormap.mat')
  Field_T4C_all=[]; Field_T5C_all=[]; 
  Field_T4D_all=[]; Field_T5D_all=[]; 
 
-
+ Zdepth_T4A_all=[]; Zdepth_T5A_all=[];
+ Zdepth_T4B_all=[]; Zdepth_T5B_all=[];
+ Zdepth_T4C_all=[]; Zdepth_T5C_all=[];
+ Zdepth_T4D_all=[]; Zdepth_T5D_all=[];
+ 
+ Turn_T4A_all=[]; Turn_T5A_all=[];
+ Turn_T4B_all=[]; Turn_T5B_all=[];
+ Turn_T4C_all=[]; Turn_T5C_all=[];
+ Turn_T4D_all=[]; Turn_T5D_all=[];
+ 
+ 
+ 
+ 
+ 
 
  RANGE=[1:size(Control.T4T5_mb,2)];
 
@@ -84,8 +97,9 @@ name_before='no';
        FlyID=FlyID+1; 
     end 
     
-    Turn=IFly.turn;
 
+    Turn=IFly.turn;
+    Zdepth=IFly.Zdepth;
     for ii=1:length(IFly.Masks.T4A)
         Quiver_T4A=[Quiver_T4A,IFly.Z.T4A(ii)*100];
         Y=IFly.RFCenter.T4A(1,ii);
@@ -175,6 +189,25 @@ name_before='no';
      Field_T5C_all=[Field_T5C_all,ones(1, length(Quiver_T5C))*i];
      Field_T5D_all=[Field_T5D_all,ones(1, length(Quiver_T5D))*i];
 
+     Zdepth_T4A_all=[Zdepth_T4A_all,ones(1, length(Quiver_T4A))*Zdepth];
+     Zdepth_T4B_all=[Zdepth_T4B_all,ones(1, length(Quiver_T4B))*Zdepth];
+     Zdepth_T4C_all=[Zdepth_T4C_all,ones(1, length(Quiver_T4C))*Zdepth];
+     Zdepth_T4D_all=[Zdepth_T4D_all,ones(1, length(Quiver_T4D))*Zdepth];
+     Zdepth_T5A_all=[Zdepth_T5A_all,ones(1, length(Quiver_T5A))*Zdepth];
+     Zdepth_T5B_all=[Zdepth_T5B_all,ones(1, length(Quiver_T5B))*Zdepth];
+     Zdepth_T5C_all=[Zdepth_T5C_all,ones(1, length(Quiver_T5C))*Zdepth];
+     Zdepth_T5D_all=[Zdepth_T5D_all,ones(1, length(Quiver_T5D))*Zdepth];
+     
+     Turn_T4A_all=[Turn_T4A_all,ones(1, length(Quiver_T4A))*Turn];
+     Turn_T4B_all=[Turn_T4B_all,ones(1, length(Quiver_T4B))*Turn];
+     Turn_T4C_all=[Turn_T4C_all,ones(1, length(Quiver_T4C))*Turn];
+     Turn_T4D_all=[Turn_T4D_all,ones(1, length(Quiver_T4D))*Turn];
+     Turn_T5A_all=[Turn_T5A_all,ones(1, length(Quiver_T5A))*Turn];
+     Turn_T5B_all=[Turn_T5B_all,ones(1, length(Quiver_T5B))*Turn];
+     Turn_T5C_all=[Turn_T5C_all,ones(1, length(Quiver_T5C))*Turn];
+     Turn_T5D_all=[Turn_T5D_all,ones(1, length(Quiver_T5D))*Turn];
+     
+     
      
      
      if ~isempty(length(IFly.CellID.T4A))
@@ -221,7 +254,7 @@ name_before='no';
 
 %% Neurons in Layer A and B seem to have two subpopulation: Cluster Data 
 
-
+% Figure 5
 % Use data from snob analysis
 
 TA_T5=ClusterR.TA_T5;
@@ -301,27 +334,232 @@ set(gca,'YLim', [-17,36])
 title(['subtype D'])
 
 
+%% Quiver plots for single Fly Figure 2C
 
-% subplot(2,3,3)
-% quiver(Coord_T5C_all(2,~(TC_T5==2))-34,Coord_T5C_all(1,~(TC_T5==2))+36,real(Quiver_T5C_all_s(~(TC_T5==2))),imag(Quiver_T5C_all_s(~(TC_T5==2))), 'AutoScale','off')
+
+% Use data from snob analysis
+
+
+
+for FlyID=[5]
+    
+F20=figure('Position',[200 200 1200 500]);
+
+Coord_T5AI_IFly=Coord_T5A_all(:,find(((FlyID_T5A_all==FlyID).*(TA_T5==3))));
+Quiver_T5AI_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==3))));
+Coord_T4AI_IFly=Coord_T4A_all(:,find(((FlyID_T4A_all==FlyID).*(TA_T4==3))));
+Quiver_T4AI_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==3))));
+
+Coord_T5AII_IFly=Coord_T5A_all(:,find(((FlyID_T5A_all==FlyID).*(TA_T5==1))));
+Quiver_T5AII_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==1))));
+Coord_T4AII_IFly=Coord_T4A_all(:,find(((FlyID_T4A_all==FlyID).*(TA_T4==1))));
+Quiver_T4AII_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==1))));
+
+Coord_T5BI_IFly=Coord_T5B_all(:,find(((FlyID_T5B_all==FlyID).*(TB_T5==1))));
+Quiver_T5BI_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==1))));
+Coord_T4BI_IFly=Coord_T4B_all(:,find(((FlyID_T4B_all==FlyID).*(TB_T4==1))));
+Quiver_T4BI_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==1))));
+
+Coord_T5BII_IFly=Coord_T5B_all(:,find(((FlyID_T5B_all==FlyID).*(TB_T5==2))));
+Quiver_T5BII_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==2))));
+Coord_T4BII_IFly=Coord_T4B_all(:,find(((FlyID_T4B_all==FlyID).*(TB_T4==2))));
+Quiver_T4BII_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==2))));
+
+
+Coord_T5C_IFly=Coord_T5C_all(:,find(((FlyID_T5C_all==FlyID).*(~(TC_T5==2)))));
+Quiver_T5C_IFly=Quiver_T5C_all_s(find(((FlyID_T5C_all==FlyID).*(~(TC_T5==2)))));
+Coord_T4C_IFly=Coord_T4C_all(:,find(((FlyID_T4C_all==FlyID).*(~(TC_T4==2)))));
+Quiver_T4C_IFly=Quiver_T4C_all_s(find(((FlyID_T4C_all==FlyID).*(~(TC_T4==2)))));
+
+Coord_T5D_IFly=Coord_T5D_all(:,find(((FlyID_T5D_all==FlyID).*(TD_T5==1))));
+Quiver_T5D_IFly=Quiver_T5D_all_s(find(((FlyID_T5D_all==FlyID).*(TD_T5==1))));
+Coord_T4D_IFly=Coord_T4D_all(:,find(((FlyID_T4D_all==FlyID).*(TD_T4==1))));
+Quiver_T4D_IFly=Quiver_T4D_all_s(find(((FlyID_T4D_all==FlyID).*(TD_T4==1))));
+
+
+subplot(2,2,1)
+quiver([Coord_T5AI_IFly(2,:),Coord_T4AI_IFly(2,:)]-34,[Coord_T5AI_IFly(1,:),Coord_T4AI_IFly(1,:)]+36,real([Quiver_T5AI_IFly,Quiver_T4AI_IFly]),imag([Quiver_T5AI_IFly,Quiver_T4AI_IFly]), 'AutoScale','off')
+hold on 
+quiver([Coord_T5AII_IFly(2,:),Coord_T4AII_IFly(2,:)]-34,[Coord_T5AII_IFly(1,:),Coord_T4AII_IFly(1,:)]+36,real([Quiver_T5AII_IFly,Quiver_T4AII_IFly]),imag([Quiver_T5AII_IFly,Quiver_T4AII_IFly]), 'AutoScale','off')
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+
+title(['subtype A.I and A.II --- FlyID', num2str(FlyID)])
+
+
+subplot(2,2,2)
+quiver([Coord_T5BI_IFly(2,:),Coord_T4BI_IFly(2,:)]-34,[Coord_T5BI_IFly(1,:),Coord_T4BI_IFly(1,:)]+36,real([Quiver_T5BI_IFly,Quiver_T4BI_IFly]),imag([Quiver_T5BI_IFly,Quiver_T4BI_IFly]), 'AutoScale','off')
+hold on 
+quiver([Coord_T5BII_IFly(2,:),Coord_T4BII_IFly(2,:)]-34,[Coord_T5BII_IFly(1,:),Coord_T4BII_IFly(1,:)]+36,real([Quiver_T5BII_IFly,Quiver_T4BII_IFly]),imag([Quiver_T5BII_IFly,Quiver_T4BII_IFly]), 'AutoScale','off')
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype B.I and B.II'])
+
+
+
+subplot(2,2,3)
+quiver([Coord_T5C_IFly(2,:),Coord_T4C_IFly(2,:)]-34,[Coord_T5C_IFly(1,:),Coord_T4C_IFly(1,:)]+36,real([Quiver_T5C_IFly,Quiver_T4C_IFly]),imag([Quiver_T5C_IFly,Quiver_T4C_IFly]), 'AutoScale','off')
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+
+title(['subtype A.I and A.II --- FlyID', num2str(FlyID)])
+
+
+subplot(2,2,4)
+quiver([Coord_T5D_IFly(2,:),Coord_T4D_IFly(2,:)]-34,[Coord_T5D_IFly(1,:),Coord_T4D_IFly(1,:)]+36,real([Quiver_T5D_IFly,Quiver_T4D_IFly]),imag([Quiver_T5D_IFly,Quiver_T4D_IFly]), 'AutoScale','off')
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype B.I and B.II'])
+
+
+
+% 
+saveas(F20, ['/Users/Miri/Desktop/Paper Revision/new plots/Quiver-Fly',num2str(FlyID), '.pdf'])
+
+% close all
+
+end 
+
+
+
+%% Compass plots for single Fly Fig. 2A
+
+
+% Use data from snob analysis
+
+
+
+for FlyID=[5]
+    
+F20=figure('Position',[200 200 800 500]);
+
+
+Quiver_T5AI_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==3))));
+Quiver_T4AI_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==3))));
+
+Quiver_T5AII_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==1))));
+Quiver_T4AII_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==1))));
+
+Quiver_T5Anoise_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==2))));
+Quiver_T4Anoise_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==2))));
+
+
+Quiver_T5BI_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==1))));
+Quiver_T4BI_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==1))));
+
+Quiver_T5BII_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==2))));
+Quiver_T4BII_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==2))));
+
+Quiver_T5Bnoise_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==3))));
+Quiver_T4Bnoise_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==3))));
+
+
+Quiver_T5C_IFly=Quiver_T5C_all_s(find(((FlyID_T5C_all==FlyID).*(~(TC_T5==2)))));
+Quiver_T4C_IFly=Quiver_T4C_all_s(find(((FlyID_T4C_all==FlyID).*(~(TC_T4==2)))));
+
+Quiver_T5Cnoise_IFly=Quiver_T5C_all_s(find(((FlyID_T5C_all==FlyID).*(TC_T5==2))));
+Quiver_T4Cnoise_IFly=Quiver_T4C_all_s(find(((FlyID_T4C_all==FlyID).*(TC_T4==2))));
+
+
+Quiver_T5D_IFly=Quiver_T5D_all_s(find(((FlyID_T5D_all==FlyID).*(TD_T5==1))));
+Quiver_T4D_IFly=Quiver_T4D_all_s(find(((FlyID_T4D_all==FlyID).*(TD_T4==1))));
+
+
+Quiver_T5Dnoise_IFly=Quiver_T5D_all_s(find(((FlyID_T5D_all==FlyID).*(TD_T5==2))));
+Quiver_T4Dnoise_IFly=Quiver_T4D_all_s(find(((FlyID_T4D_all==FlyID).*(TD_T4==2))));
+
+
+subplot(2,2,1)
+compass([Quiver_T5AI_IFly, Quiver_T4AI_IFly],'r')
+hold on 
+compass([Quiver_T5AII_IFly, Quiver_T4AII_IFly],'y')
+compass([Quiver_T5Anoise_IFly, Quiver_T4Anoise_IFly],'k')
+
+title(['subtype A.I and A.II --- FlyID', num2str(FlyID)])
+
+subplot(2,2,2)
+compass([Quiver_T5BI_IFly, Quiver_T4BI_IFly],'r')
+hold on 
+compass([Quiver_T5BII_IFly, Quiver_T4BII_IFly],'y')
+compass([Quiver_T5Bnoise_IFly, Quiver_T4Bnoise_IFly],'k')
+
+title(['subtype B.I and B.II --- FlyID', num2str(FlyID)])
+
+
+subplot(2,2,3)
+compass([Quiver_T5C_IFly, Quiver_T4C_IFly],'r')
+hold on 
+compass([Quiver_T5Cnoise_IFly, Quiver_T4Cnoise_IFly],'k')
+
+title(['subtype C --- FlyID', num2str(FlyID)])
+
+
+subplot(2,2,4)
+compass([Quiver_T5D_IFly, Quiver_T4D_IFly],'r')
+hold on 
+compass([Quiver_T5Dnoise_IFly, Quiver_T4Dnoise_IFly],'k')
+
+title(['subtype D --- FlyID', num2str(FlyID)])
+
+
+
+
+
+% 
+% saveas(F20, ['/Users/Miri/Desktop/Paper Revision/new plots/CompassST-Fly',num2str(FlyID), '.pdf'])
+
+% close all
+
+end 
+% %
+% 
+% subplot(2,3,4)
+% quiver(Coord_T5B_all(2,TB_T5==1)-34,Coord_T5B_all(1,TB_T5==1)+36,real(Quiver_T5B_all_s(TB_T5==1)),imag(Quiver_T5B_all_s(TB_T5==1)), 'AutoScale','off')
 % hold on 
-% quiver(Coord_T4C_all(2,~(TC_T4==2))-34,Coord_T4C_all(1,~(TC_T4==2))+36,real(Quiver_T4C_all_s(~(TC_T4==2))),imag(Quiver_T4C_all_s(~(TC_T4==2))), 'AutoScale','off')
+% quiver(Coord_T4B_all(2,TB_T4==1)-34,Coord_T4B_all(1,TB_T4==1)+36,real(Quiver_T4B_all_s(TB_T4==1)),imag(Quiver_T4B_all_s(TB_T4==1)), 'AutoScale','off')
+% axis('equal')
+% set(gca,'XLim', [-34,44+2*45])
+% set(gca,'YLim', [-17,36])
+% title(['subtype B.I'])
+% 
+% 
+% subplot(2,3,5)
+% quiver(Coord_T5B_all(2,TB_T5==2)-34,Coord_T5B_all(1,TB_T5==2)+36,real(Quiver_T5B_all_s(TB_T5==2)),imag(Quiver_T5B_all_s(TB_T5==2)), 'AutoScale','off')
+% hold on 
+% quiver(Coord_T4B_all(2,TB_T4==2)-34,Coord_T4B_all(1,TB_T4==2)+36,real(Quiver_T4B_all_s(TB_T4==2)),imag(Quiver_T4B_all_s(TB_T4==2)), 'AutoScale','off')
+% axis('equal')
+% set(gca,'XLim', [-34,44+2*45])
+% set(gca,'YLim', [-17,36])
+% title(['subtype B.II'])
+% 
+% 
+% subplot(2,3,3)
+% quiver(Coord_T5C_all(2,~isnan(sum(Coord_T5C_all)))-34,Coord_T5C_all(1,~isnan(sum(Coord_T5C_all)))+36,real(Quiver_T5C_all_s(~isnan(sum(Coord_T5C_all)))),imag(Quiver_T5C_all_s(~isnan(sum(Coord_T5C_all)))), 'AutoScale','off')
+% hold on 
+% quiver(Coord_T4C_all(2,~isnan(sum(Coord_T4C_all)))-34,Coord_T4C_all(1,~isnan(sum(Coord_T4C_all)))+36,real(Quiver_T4C_all_s(~isnan(sum(Coord_T4C_all)))),imag(Quiver_T4C_all_s(~isnan(sum(Coord_T4C_all)))), 'AutoScale','off')
 % axis('equal')
 % set(gca,'XLim', [-34,44+2*45])
 % set(gca,'YLim', [-17,36])
 % title(['subtype C'])
 % 
 % subplot(2,3,6)
-% quiver(Coord_T5D_all(2,TD_T5==1)-34,Coord_T5D_all(1,TD_T5==1)+36,real(Quiver_T5D_all_s(TD_T5==1)),imag(Quiver_T5D_all_s(TD_T5==1)), 'AutoScale','off')
+% quiver(Coord_T5D_all(2,~isnan(sum(Coord_T5D_all)))-34,Coord_T5D_all(1,~isnan(sum(Coord_T5D_all)))+36,real(Quiver_T5D_all_s(~isnan(sum(Coord_T5D_all)))),imag(Quiver_T5D_all_s(~isnan(sum(Coord_T5D_all)))), 'AutoScale','off')
 % hold on 
-% quiver(Coord_T4D_all(2,TD_T4==1)-34,Coord_T4D_all(1,TD_T4==1)+36,real(Quiver_T4D_all_s(TD_T4==1)),imag(Quiver_T4D_all_s(TD_T4==1)), 'AutoScale','off')
+% quiver(Coord_T4D_all(2,~isnan(sum(Coord_T4D_all)))-34,Coord_T4D_all(1,~isnan(sum(Coord_T4D_all)))+36,real(Quiver_T4D_all_s(~isnan(sum(Coord_T4D_all)))),imag(Quiver_T4D_all_s(~isnan(sum(Coord_T4D_all)))), 'AutoScale','off')
 % axis('equal')
 % set(gca,'XLim', [-34,44+2*45])
 % set(gca,'YLim', [-17,36])
 % title(['subtype D'])
 % 
+% 
 
-%% Average change of tuning: 
+% 
+
+%% Average change of tuning: Figure 5 (black vectors plotted below flow fields) & fig. S5A,B
 % horizontal: 
 horizontal_steps=-20:10:75; 
 AverTuning_AI=nan(1,length(horizontal_steps)); 
@@ -544,7 +782,7 @@ title('subtype C')
 
 
 
-%%
+
 
 % vertical: 
 horizontal_steps=-10:10:30; 
@@ -770,9 +1008,9 @@ title('LayerC')
 
 
 %% Subgroups covering screen for each fly 
-%Extended Data Fig. 4d 
+%Not plotted in mansucripts anymore
 
-ID=5; % ID=5 is the FlyID shown in the manuscript, any other exmaple can be plotted as well by changing this to a value between 2 and 15
+ID=10; % ID=5 is the FlyID that is in the manuscript in Fig.2 , any other exmaple can be plotted as well by changing this to a value between 2 and 15
 F9=figure;
 subplot(2,1,1)
 Ind=find((TA_T5==3).*(FlyID_T5A_all==ID));
@@ -814,7 +1052,317 @@ Savename=['RF_Center_Analysis_FlyID:', num2str(ID)];
 % set(F9,'PaperSize', [50 20])
                             
 
+
+
+%% Plot tuning for different z-depth Fig. 3D plotted below histograms of subtype distribution
+
+cm_A=[151,217,0; 170, 170, 170; 23,106,0]/355;
+cm_A=[166,217,63; 170, 170, 170; 0,127,0]/355;
+cm_B=[ 0,0,154; 72,144,203; 170, 170, 170]/355;
+cm_B=[ 0,0,222; 123,191,217; 170, 170, 170]/355;
+cm_C=[ 237,32,39;  170, 170, 170; 237,32,39;]/355;
+cm_D=[ 214,214,37; 170, 170, 170]/355;
+
+Depth=[30,35;45,50;60,65;75,80];
+
+F10=figure('Position', [200, 200, 900, 900]); 
+    
+for Round=1:4
+    subplot(4,4,Round)
+    
+    P=compass(1);
+    set(P, 'Visible', 'off')
+    hold on
+
+    Ind=find((TA_T5==3).*((Zdepth_T5A_all==Depth(Round,1))+(Zdepth_T5A_all==Depth(Round,2))));
+    Ind2=find((TA_T4==3).*((Zdepth_T4A_all==Depth(Round,1))+(Zdepth_T4A_all==Depth(Round,2)))); 
+    Ind3=find((TA_T5==1).*((Zdepth_T5A_all==Depth(Round,1))+(Zdepth_T5A_all==Depth(Round,2))));
+    Ind4=find((TA_T4==1).*((Zdepth_T4A_all==Depth(Round,1))+(Zdepth_T4A_all==Depth(Round,2))));
+    
+    P1=compass(Quiver_T5A_all_s(Ind)/10); 
+    hold on 
+    
+    P2=compass(Quiver_T4A_all_s(Ind2)/10); 
+    P3=compass(Quiver_T5A_all_s(Ind3)/10); 
+    P4=compass(Quiver_T4A_all_s(Ind4)/10); 
+    
+    
+    for i=1:length(P1)
+        set(P1(i),'color',cm_A(3,:));
+    end
+    
+    for i=1:length(P2)
+        set(P2(i),'color',cm_A(3,:));
+    end
+    
+    for i=1:length(P3)
+        set(P3(i),'color',cm_A(1,:));
+    end
+    
+    for i=1:length(P4)
+        set(P4(i),'color',cm_A(1,:));
+    end
+    
+end 
+
+for Round=1:4
+    subplot(4,4,Round+4)
+    
+    P=compass(1);
+    set(P, 'Visible', 'off')
+    hold on
+
+    Ind=find((TB_T5==1).*((Zdepth_T5B_all==Depth(Round,1))+(Zdepth_T5B_all==Depth(Round,2))));
+    Ind2=find((TB_T4==1).*((Zdepth_T4B_all==Depth(Round,1))+(Zdepth_T4B_all==Depth(Round,2)))); 
+    Ind3=find((TB_T5==2).*((Zdepth_T5B_all==Depth(Round,1))+(Zdepth_T5B_all==Depth(Round,2))));
+    Ind4=find((TB_T4==2).*((Zdepth_T4B_all==Depth(Round,1))+(Zdepth_T4B_all==Depth(Round,2))));
+    
+    P1=compass(Quiver_T5B_all_s(Ind)/10); 
+    hold on 
+    
+    P2=compass(Quiver_T4B_all_s(Ind2)/10); 
+    P3=compass(Quiver_T5B_all_s(Ind3)/10); 
+    P4=compass(Quiver_T4B_all_s(Ind4)/10); 
+    
+    
+    for i=1:length(P1)
+        set(P1(i),'color',cm_B(1,:));
+    end
+    
+    for i=1:length(P2)
+        set(P2(i),'color',cm_B(1,:));
+    end
+    
+    for i=1:length(P3)
+        set(P3(i),'color',cm_B(2,:));
+    end
+    
+    for i=1:length(P4)
+        set(P4(i),'color',cm_B(2,:));
+    end
+    
+end 
+
+
+for Round=1:4
+    subplot(4,4,Round+8)
+    
+    P=compass(1);
+    set(P, 'Visible', 'off')
+    hold on
+
+    Ind=find((TC_T5==1).*((Zdepth_T5C_all==Depth(Round,1))+(Zdepth_T5C_all==Depth(Round,2))));
+    Ind2=find((TC_T4==1).*((Zdepth_T4C_all==Depth(Round,1))+(Zdepth_T4C_all==Depth(Round,2)))); 
+    Ind3=find((TC_T5==3).*((Zdepth_T5C_all==Depth(Round,1))+(Zdepth_T5C_all==Depth(Round,2))));
+    Ind4=find((TC_T4==3).*((Zdepth_T4C_all==Depth(Round,1))+(Zdepth_T4C_all==Depth(Round,2))));
+    
+    P1=compass(Quiver_T5C_all_s(Ind)/10); 
+    hold on 
+    
+    P2=compass(Quiver_T4C_all_s(Ind2)/10); 
+    P3=compass(Quiver_T5C_all_s(Ind3)/10); 
+    P4=compass(Quiver_T4C_all_s(Ind4)/10); 
+    
+    
+    for i=1:length(P1)
+        set(P1(i),'color',cm_C(1,:));
+    end
+    
+    for i=1:length(P2)
+        set(P2(i),'color',cm_C(1,:));
+    end
+    
+    for i=1:length(P3)
+        set(P3(i),'color',cm_C(3,:));
+    end
+    
+    for i=1:length(P4)
+        set(P4(i),'color',cm_C(3,:));
+    end
+    
+end 
+
+
+
+for Round=1:4
+    subplot(4,4,Round+12)
+    
+    P=compass(1);
+    set(P, 'Visible', 'off')
+    hold on
+
+    Ind=find((TD_T5==1).*((Zdepth_T5D_all==Depth(Round,1))+(Zdepth_T5D_all==Depth(Round,2))));
+    Ind2=find((TD_T4==1).*((Zdepth_T4D_all==Depth(Round,1))+(Zdepth_T4D_all==Depth(Round,2)))); 
+    
+    P1=compass(Quiver_T5D_all_s(Ind)/10); 
+    hold on 
+    P2=compass(Quiver_T4D_all_s(Ind2)/10);
+    
+    
+    for i=1:length(P1)
+        set(P1(i),'color',cm_D(1,:));
+    end
+    
+    for i=1:length(P2)
+        set(P2(i),'color',cm_D(1,:));
+    end
+    
+end 
+
+
+subplot(4,4,1) 
+title('Z 30-35') 
+
+subplot(4,4,2) 
+title('Z 45-50') 
+
+subplot(4,4,3) 
+title('Z 60-65') 
+
+subplot(4,4,4) 
+title('Z 75-80') 
+
+set(F10,'Renderer','Painters')
+
+
+
+%% Quiver plots single Fly Color code
+% fig. S5C 
+
+% Use data from snob analysis
+
+F20=figure('Position',[200 200 1200 500]);
+% cm=colormap('jet');
+cm=[166,206,227;...
+    255,127,0;...
+178,223,138;...
+51,160,44;...
+251,154,153;...
+227,26,28;...
+253,191,111;...
+202,178,214;...
+106,61,154;...
+255,255,153;...
+177,89,40;...
+237,177,23;...
+31,120,180;...
+217,217,217]/255; 
+
+
+F=1;
+for FlyID=2:15
     
 
 
+Coord_T5AI_IFly=Coord_T5A_all(:,find(((FlyID_T5A_all==FlyID).*(TA_T5==3))));
+Quiver_T5AI_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==3))));
+Coord_T4AI_IFly=Coord_T4A_all(:,find(((FlyID_T4A_all==FlyID).*(TA_T4==3))));
+Quiver_T4AI_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==3))));
+
+Coord_T5AII_IFly=Coord_T5A_all(:,find(((FlyID_T5A_all==FlyID).*(TA_T5==1))));
+Quiver_T5AII_IFly=Quiver_T5A_all_s(find(((FlyID_T5A_all==FlyID).*(TA_T5==1))));
+Coord_T4AII_IFly=Coord_T4A_all(:,find(((FlyID_T4A_all==FlyID).*(TA_T4==1))));
+Quiver_T4AII_IFly=Quiver_T4A_all_s(find(((FlyID_T4A_all==FlyID).*(TA_T4==1))));
+
+Coord_T5BI_IFly=Coord_T5B_all(:,find(((FlyID_T5B_all==FlyID).*(TB_T5==1))));
+Quiver_T5BI_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==1))));
+Coord_T4BI_IFly=Coord_T4B_all(:,find(((FlyID_T4B_all==FlyID).*(TB_T4==1))));
+Quiver_T4BI_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==1))));
+
+Coord_T5BII_IFly=Coord_T5B_all(:,find(((FlyID_T5B_all==FlyID).*(TB_T5==2))));
+Quiver_T5BII_IFly=Quiver_T5B_all_s(find(((FlyID_T5B_all==FlyID).*(TB_T5==2))));
+Coord_T4BII_IFly=Coord_T4B_all(:,find(((FlyID_T4B_all==FlyID).*(TB_T4==2))));
+Quiver_T4BII_IFly=Quiver_T4B_all_s(find(((FlyID_T4B_all==FlyID).*(TB_T4==2))));
+
+
+Coord_T5C_IFly=Coord_T5C_all(:,find(((FlyID_T5C_all==FlyID).*(~(TC_T5==2)))));
+Quiver_T5C_IFly=Quiver_T5C_all_s(find(((FlyID_T5C_all==FlyID).*(~(TC_T5==2)))));
+Coord_T4C_IFly=Coord_T4C_all(:,find(((FlyID_T4C_all==FlyID).*(~(TC_T4==2)))));
+Quiver_T4C_IFly=Quiver_T4C_all_s(find(((FlyID_T4C_all==FlyID).*(~(TC_T4==2)))));
+
+Coord_T5D_IFly=Coord_T5D_all(:,find(((FlyID_T5D_all==FlyID).*(TD_T5==1))));
+Quiver_T5D_IFly=Quiver_T5D_all_s(find(((FlyID_T5D_all==FlyID).*(TD_T5==1))));
+Coord_T4D_IFly=Coord_T4D_all(:,find(((FlyID_T4D_all==FlyID).*(TD_T4==1))));
+Quiver_T4D_IFly=Quiver_T4D_all_s(find(((FlyID_T4D_all==FlyID).*(TD_T4==1))));
+
+
+subplot(2,3,1)
+quiver([Coord_T5AI_IFly(2,:),Coord_T4AI_IFly(2,:)]-34,[Coord_T5AI_IFly(1,:),Coord_T4AI_IFly(1,:)]+36,real([Quiver_T5AI_IFly,Quiver_T4AI_IFly]),imag([Quiver_T5AI_IFly,Quiver_T4AI_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+hold on 
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+
+title(['subtype A.I'])
+
+subplot(2,3,4)
+quiver([Coord_T5AII_IFly(2,:),Coord_T4AII_IFly(2,:)]-34,[Coord_T5AII_IFly(1,:),Coord_T4AII_IFly(1,:)]+36,real([Quiver_T5AII_IFly,Quiver_T4AII_IFly]),imag([Quiver_T5AII_IFly,Quiver_T4AII_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+hold on 
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype A.II'])
+
+
+subplot(2,3,2)
+quiver([Coord_T5BI_IFly(2,:),Coord_T4BI_IFly(2,:)]-34,[Coord_T5BI_IFly(1,:),Coord_T4BI_IFly(1,:)]+36,real([Quiver_T5BI_IFly,Quiver_T4BI_IFly]),imag([Quiver_T5BI_IFly,Quiver_T4BI_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+hold on 
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype B.I '])
+
+
+subplot(2,3,5)
+quiver([Coord_T5BII_IFly(2,:),Coord_T4BII_IFly(2,:)]-34,[Coord_T5BII_IFly(1,:),Coord_T4BII_IFly(1,:)]+36,real([Quiver_T5BII_IFly,Quiver_T4BII_IFly]),imag([Quiver_T5BII_IFly,Quiver_T4BII_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+hold on 
+axis('equal')
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype B.II'])
+
+
+
+subplot(2,3,3)
+quiver([Coord_T5C_IFly(2,:),Coord_T4C_IFly(2,:)]-34,[Coord_T5C_IFly(1,:),Coord_T4C_IFly(1,:)]+36,real([Quiver_T5C_IFly,Quiver_T4C_IFly]),imag([Quiver_T5C_IFly,Quiver_T4C_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+axis('equal')
+hold on 
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+
+title(['subtype C --- FlyID', num2str(FlyID)])
+
+
+subplot(2,3,6)
+quiver([Coord_T5D_IFly(2,:),Coord_T4D_IFly(2,:)]-34,[Coord_T5D_IFly(1,:),Coord_T4D_IFly(1,:)]+36,real([Quiver_T5D_IFly,Quiver_T4D_IFly]),imag([Quiver_T5D_IFly,Quiver_T4D_IFly]), 'AutoScale','off','Color',cm(FlyID*F-1,:))
+axis('equal')
+hold on 
+set(gca,'XLim', [-34,44+2*45])
+set(gca,'YLim', [-17,36])
+title(['subtype B.I and B.II'])
+
+
+
+% 
+% saveas(F20, ['/Users/Miri/Desktop/Paper Revision/new plots/Quiver-Fly',num2str(FlyID), '.pdf'])
+
+% close all
+
+end 
+
+% %Specify to region
+% 
+% XL=[-34,44+2*45]
+% YL=[-17,36]
+% 
+% XL=[0 20]
+% YL=[10,30]
+% 
+% for i=1:6
+% subplot(2,3,i)
+% 
+% set(gca,'XLim', XL)
+% set(gca,'YLim', YL)
+% 
+% end
 

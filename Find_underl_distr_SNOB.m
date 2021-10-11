@@ -21,6 +21,20 @@ Data_B=convert_angle(angle([Z.T5B.ALL,Z.T4B.ALL]),'rad')';   % here I need to co
 Data_C=angle([Z.T5C.ALL,Z.T4C.ALL])'; %same as in A
 Data_D=angle([Z.T5D.ALL,Z.T4D.ALL])'; %same as in A
 
+% First test each Group for normal distribution
+% [h,p] = kstest(Data_A)
+% [h,p] = kstest(Data_B)
+% [h,p] = kstest(Data_C)
+% [h,p] = kstest(Data_D)
+
+
+
+
+
+
+%%
+
+
 % run the snob analysis:
 mm_A = snob(Data_A, {'norm',1});
 mm_B = snob(Data_B, {'norm',1});

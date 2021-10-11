@@ -2,7 +2,7 @@
 
 %%%%%%%%%%%%%%
 % This skript plots compass plots for local vs. global tuning shown in
-% Figure 2c,d,e and Extended Data Figure 3c
+% Figure 3c,d,e and Extended Data Figure 3c
 % %% NOTE!: This skript loops through all 14 flies and plots Z30 and Z60 (or whatever specified in 'z-depth'),
 %           but not all Flies were recorded at that z-depth planes, therefore some local plots are empty!   
 %%%%%%%%%%%%%%
@@ -22,11 +22,13 @@ end
 
 load('Data/Data_Edges/Snob_Cluster_Info.mat') % load subtype identity from SNOB analysis
 
-
+Foldertosave='/Volumes/SILIESLAB/MiriH/2p-imaging/Results_T4T5_Imaging_DS_tuning/Responses_to_Edges8Dir/'
 %% Define
 
-Z_depth=[30,60]; % choose z-depth planes to compare: here Z-depth of 30(most dorsal plane) vs 60(ventral plane)
+% Z_depth=[45,60,75]; % choose z-depth planes to compare: here Z-depth of 30(most dorsal plane) vs 60(ventral plane)
+Z_depth=[30,45,60]; % choose z-depth planes to compare: here Z-depth of 30(most dorsal plane) vs 60(ventral plane)
 
+Turni=0;
 %specifiy Colors for plotting
 ColorAI=[23,106,0]/255;
 ColorAII=[151,217,0]/255;
@@ -64,13 +66,14 @@ DSI_byFly_T5_D=nan(14,1000);
 
 %% Main
 
-
+FlytoPlot='200729_Fly4';
 count_Flyn=1;
 Flyname_before=['noname'];
 for II=1:size(Conditions.Control.T4T5_mb,2)
     
     IFly=Conditions.Control.T4T5_mb(II);
     ZDepth=IFly.z_depth;
+    TURN=IFly.turn;
     Flyname=IFly.Flyname;
     Ind=strfind(Flyname, '_');
     Flynamei=Flyname(1:Ind(2)-1);
@@ -95,12 +98,14 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             count_Flyn=count_Flyn+1;
             
             %Save previous figure
+            if strcmp(FlytoPlot, Flyname_before)
+            
             F1=figure('Position',[200 200 1180 700]);
-            subplot(2,3,1)
+            subplot(2,4,1)
             P=compass(1);
             set(P, 'Visible', 'off')
             hold on
-            title(['Local Tuning Z-depth:', num2str(Z_depth(1))])
+            title(['Local Tuning Z-depth:', num2str(Z_depth(1)), ' _',Flyname_before])
             Comp=compass(DSI_AI_Z1);
             for ic=1:length(Comp)
                 set(Comp(ic),'color',ColorAI);
@@ -127,7 +132,7 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             end
             
             
-            subplot(2,3,2)
+            subplot(2,4,2)
             P=compass(1);
             set(P, 'Visible', 'off')
             hold on
@@ -158,7 +163,38 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             end
             
             
-            subplot(2,3,3)
+            subplot(2,4,3)
+            P=compass(1);
+            set(P, 'Visible', 'off')
+            hold on
+            title(['Local Tuning Z-depth:', num2str(Z_depth(3))])
+            Comp=compass(DSI_AI_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorAI);
+            end
+            Comp=compass(DSI_AII_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorAII);
+            end
+            Comp=compass(DSI_BI_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorBI);
+            end
+            Comp=compass(DSI_BII_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorBII);
+            end
+            Comp=compass(DSI_C_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorC);
+            end
+            Comp=compass(DSI_D_Z3);
+            for ic=1:length(Comp)
+                set(Comp(ic),'color',ColorD);
+            end
+            
+            
+            subplot(2,4,4)
             P=compass(1);
             set(P, 'Visible', 'off')
             hold on
@@ -190,101 +226,132 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             
             
             nbins= 72;
-            subAx1 = subplot(2, 3, 4, polaraxes);
+            subAx1 = subplot(2, 4, 5, polaraxes);
             
             if ~isempty([DSI_C_Z1])
-                obj5 = Plot_circHist([DSI_C_Z1], ColorC, subAx1, [-0.5, 6],nbins);
+                obj5 = Plot_circHist([DSI_C_Z1], ColorC, subAx1, [-0.5, 4],nbins);
                 delete(obj5.scaleBar)
             end
             
             if ~isempty([DSI_D_Z1])
-                obj6 = Plot_circHist([DSI_D_Z1], ColorD, subAx1, [-0.5, 6],nbins);
+                obj6 = Plot_circHist([DSI_D_Z1], ColorD, subAx1, [-0.5, 4],nbins);
                 delete(obj6.scaleBar)
             end
             
             if ~isempty([DSI_AI_Z1])
-                obj1 = Plot_circHist([DSI_AI_Z1], ColorAI, subAx1, [-0.5, 6],nbins);
+                obj1 = Plot_circHist([DSI_AI_Z1], ColorAI, subAx1, [-0.5, 4],nbins);
                 delete(obj1.scaleBar)
             end
             
             if ~isempty([DSI_AII_Z1])
-                obj2 = Plot_circHist([DSI_AII_Z1], ColorAII, subAx1, [-0.5, 6],nbins);
+                obj2 = Plot_circHist([DSI_AII_Z1], ColorAII, subAx1, [-0.5, 4],nbins);
             end
             
             if ~isempty([DSI_BI_Z1])
-                obj3 = Plot_circHist([DSI_BI_Z1], ColorBI, subAx1, [-0.5, 6],nbins);
+                obj3 = Plot_circHist([DSI_BI_Z1], ColorBI, subAx1, [-0.5, 4],nbins);
                 delete(obj3.scaleBar)
             end
             
             if ~isempty([DSI_BII_Z1])
-                obj4 = Plot_circHist([DSI_BII_Z1], ColorBII, subAx1, [-0.5, 6],nbins);
+                obj4 = Plot_circHist([DSI_BII_Z1], ColorBII, subAx1, [-0.5, 4],nbins);
                 delete(obj4.scaleBar)
             end
             
             
             
             
-            subAx2 = subplot(2, 3, 5, polaraxes);
+            subAx2 = subplot(2, 4, 6, polaraxes);
             
             if ~isempty([DSI_C_Z2])
-                obj5 = Plot_circHist([DSI_C_Z2], ColorC, subAx2, [-0.5,6],nbins);
+                obj5 = Plot_circHist([DSI_C_Z2], ColorC, subAx2, [-0.5,4],nbins);
                 delete(obj5.scaleBar)
             end
             
             if ~isempty([DSI_D_Z2])
-                obj6 = Plot_circHist([DSI_D_Z2], ColorD, subAx2, [-0.5, 6],nbins);
+                obj6 = Plot_circHist([DSI_D_Z2], ColorD, subAx2, [-0.5, 4],nbins);
                 delete(obj6.scaleBar)
             end
             
             if ~isempty([DSI_AI_Z2])
-                obj1 = Plot_circHist([DSI_AI_Z2], ColorAI, subAx2, [-0.5, 6],nbins);
+                obj1 = Plot_circHist([DSI_AI_Z2], ColorAI, subAx2, [-0.5, 4],nbins);
             end
             
             if ~isempty([DSI_AII_Z2])
-                obj2 = Plot_circHist([DSI_AII_Z2], ColorAII, subAx2, [-0.5, 6],nbins);
+                obj2 = Plot_circHist([DSI_AII_Z2], ColorAII, subAx2, [-0.5, 4],nbins);
                 delete(obj2.scaleBar)
             end
             
             if ~isempty([DSI_BI_Z2])
-                obj3 = Plot_circHist([DSI_BI_Z2], ColorBI, subAx2, [-0.5, 6],nbins);
+                obj3 = Plot_circHist([DSI_BI_Z2], ColorBI, subAx2, [-0.5, 4],nbins);
                 delete(obj3.scaleBar)
             end
             
             if ~isempty([DSI_BII_Z2])
-                obj4 = Plot_circHist([DSI_BII_Z2], ColorBII, subAx2, [-0.5, 6],nbins);
+                obj4 = Plot_circHist([DSI_BII_Z2], ColorBII, subAx2, [-0.5, 4],nbins);
                 delete(obj4.scaleBar)
             end
             
             
+             subAx3 = subplot(2, 4, 7, polaraxes);
             
-            subAx3 = subplot(2, 3, 6, polaraxes);
+            if ~isempty([DSI_C_Z3])
+                obj5 = Plot_circHist([DSI_C_Z3], ColorC, subAx3, [-0.5,6],nbins);
+                delete(obj5.scaleBar)
+            end
+            
+            if ~isempty([DSI_D_Z3])
+                obj6 = Plot_circHist([DSI_D_Z3], ColorD, subAx3, [-0.5, 6],nbins);
+                delete(obj6.scaleBar)
+            end
+            
+            if ~isempty([DSI_AI_Z3])
+                obj1 = Plot_circHist([DSI_AI_Z3], ColorAI, subAx3, [-0.5,6],nbins);
+            end
+            
+            if ~isempty([DSI_AII_Z3])
+                obj2 = Plot_circHist([DSI_AII_Z3], ColorAII, subAx3, [-0.5, 6],nbins);
+                delete(obj2.scaleBar)
+            end
+            
+            if ~isempty([DSI_BI_Z3])
+                obj3 = Plot_circHist([DSI_BI_Z3], ColorBI, subAx3, [-0.5,6],nbins);
+                delete(obj3.scaleBar)
+            end
+            
+            if ~isempty([DSI_BII_Z3])
+                obj4 = Plot_circHist([DSI_BII_Z3], ColorBII, subAx3, [-0.5, 6],nbins);
+                delete(obj4.scaleBar)
+            end
+            
+            
+            subAx4 = subplot(2, 4, 8, polaraxes);
             if ~isempty([DSI_T4_C,DSI_T5_C])
-                obj5 = Plot_circHist([DSI_T4_C,DSI_T5_C], ColorC, subAx3, [-0.5, 10],nbins);
+                obj5 = Plot_circHist([DSI_T4_C,DSI_T5_C], ColorC, subAx4, [-0.5, 12],nbins);
                 delete(obj5.scaleBar)
                 
             end
             
             if ~isempty([DSI_T4_D,DSI_T5_D])
-                obj6 = Plot_circHist([DSI_T4_D,DSI_T5_D], ColorD, subAx3, [-0.5, 10],nbins);
+                obj6 = Plot_circHist([DSI_T4_D,DSI_T5_D], ColorD, subAx4, [-0.5, 12],nbins);
                 delete(obj6.scaleBar)
             end
             
             if ~isempty([DSI_T4_AI,DSI_T5_AI])
-                obj1 = Plot_circHist([DSI_T4_AI,DSI_T5_AI], ColorAI, subAx3, [-0.5, 10],nbins);
+                obj1 = Plot_circHist([DSI_T4_AI,DSI_T5_AI], ColorAI, subAx4, [-0.5, 12],nbins);
             end
             
             if ~isempty([DSI_T4_AII,DSI_T5_AII])
-                obj2 = Plot_circHist([DSI_T4_AII,DSI_T5_AII], ColorAII, subAx3, [-0.5, 10],nbins);
+                obj2 = Plot_circHist([DSI_T4_AII,DSI_T5_AII], ColorAII, subAx4, [-0.5, 12],nbins);
                 delete(obj2.scaleBar)
             end
             
             if ~isempty([DSI_T4_BI,DSI_T5_BI])
-                obj3 = Plot_circHist([DSI_T4_BI,DSI_T5_BI], ColorBI, subAx3, [-0.5, 10],nbins);
+                obj3 = Plot_circHist([DSI_T4_BI,DSI_T5_BI], ColorBI, subAx4, [-0.5, 12],nbins);
                 delete(obj3.scaleBar)
             end
             
             if ~isempty([DSI_T4_BII,DSI_T5_BII])
-                obj4 = Plot_circHist([DSI_T4_BII,DSI_T5_BII], ColorBII, subAx3, [-0.5, 10],nbins);
+                obj4 = Plot_circHist([DSI_T4_BII,DSI_T5_BII], ColorBII, subAx4, [-0.5, 12],nbins);
                 delete(obj4.scaleBar)
                 
             end
@@ -293,10 +360,10 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             
             set(F1,'PaperSize', [50 40])
             F1.Renderer='Painters';
-            %         saveas(F1, [Foldertosave, 'Global_vs_LocalTuning_',Flyname_before,'.pdf'])
-            %
-            %              close all
-            
+%                   saveas(F1, [Foldertosave, 'Global_vs_LocalTuning_',Flyname_before,'_plusMedial.pdf'])
+%             
+%                           close all
+           end 
         end
         
         DSI_T4_AI=[];
@@ -315,22 +382,22 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
         
         DSI_AI_Z1=[];
         DSI_AI_Z2=[];
+        DSI_AI_Z3=[];
         DSI_AII_Z1=[];
         DSI_AII_Z2=[];
+        DSI_AII_Z3=[];
         DSI_BI_Z1=[];
         DSI_BI_Z2=[];
+        DSI_BI_Z3=[];
         DSI_BII_Z1=[];
         DSI_BII_Z2=[];
+        DSI_BII_Z3=[];
         DSI_C_Z1=[];
         DSI_C_Z2=[];
+        DSI_C_Z3=[];
         DSI_D_Z1=[];
         DSI_D_Z2=[];
-        
-        
-        
-        
-        
-        
+        DSI_D_Z3=[];
         
     end
     
@@ -355,7 +422,7 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
             if nCells>0
                 for i = 1:nCells
                     
-                    if La==1
+                    if La==1 
                         
                         if Clusterii(i)==3
                             if strcmp(T4T5i, 'T4')
@@ -364,10 +431,12 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                                 DSI_T5_AI=[DSI_T5_AI,Z(i)];
                             end
                             
-                            if ZDepth==Z_depth(1)
+                            if ZDepth==Z_depth(1) && TURN==Turni
                                 DSI_AI_Z1=[DSI_AI_Z1,Z(i)]; %save again only for certain Z_depth
-                            elseif ZDepth==Z_depth(2)
+                            elseif ZDepth==Z_depth(2) && TURN==Turni
                                 DSI_AI_Z2=[DSI_AI_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3) && TURN==Turni
+                                DSI_AI_Z3=[DSI_AI_Z3,Z(i)];
                             end
                             
                             
@@ -380,15 +449,17 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                             end
                             
                             
-                            if ZDepth==Z_depth(1)
+                            if ZDepth==Z_depth(1) && TURN==Turni
                                 DSI_AII_Z1=[DSI_AII_Z1,Z(i)];
-                            elseif ZDepth==Z_depth(2)
+                            elseif ZDepth==Z_depth(2)  && TURN==Turni
                                 DSI_AII_Z2=[DSI_AII_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3)  && TURN==Turni
+                                DSI_AII_Z3=[DSI_AII_Z3,Z(i)];
                             end
                             
                         end
                         
-                    elseif La==2
+                    elseif La==2 
                         
                         
                         if Clusterii(i)==1
@@ -402,6 +473,8 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                                 DSI_BI_Z1=[DSI_BI_Z1,Z(i)];
                             elseif ZDepth==Z_depth(2)
                                 DSI_BI_Z2=[DSI_BI_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3)
+                                DSI_BI_Z3=[DSI_BI_Z3,Z(i)];
                             end
                             
                         elseif Clusterii(i)==2
@@ -416,11 +489,13 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                                 DSI_BII_Z1=[DSI_BII_Z1,Z(i)];
                             elseif ZDepth==Z_depth(2)
                                 DSI_BII_Z2=[DSI_BII_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3)
+                                DSI_BII_Z3=[DSI_BII_Z3,Z(i)];
                             end
                         end
                         
                         
-                    elseif La==3
+                    elseif La==3 
                         
                         if Clusterii(i)==1 || Clusterii(i)==3
                             if strcmp(T4T5i, 'T4')
@@ -429,15 +504,17 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                                 DSI_T5_C=[DSI_T5_C,Z(i)];
                             end
                             
-                            if ZDepth==Z_depth(1)
+                            if ZDepth==Z_depth(1) && TURN==Turni
                                 DSI_C_Z1=[DSI_C_Z1,Z(i)];
-                            elseif ZDepth==Z_depth(2)
+                            elseif ZDepth==Z_depth(2) && TURN==Turni
                                 DSI_C_Z2=[DSI_C_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3) && TURN==Turni
+                                DSI_C_Z3=[DSI_C_Z3,Z(i)];
                             end
                         end
                         
                         
-                    elseif La==4
+                    elseif La==4 
                         if Clusterii(i)==1
                             if strcmp(T4T5i, 'T4')
                                 DSI_T4_D=[DSI_T4_D,Z(i)];
@@ -445,10 +522,12 @@ for II=1:size(Conditions.Control.T4T5_mb,2)
                                 DSI_T5_D=[DSI_T5_D,Z(i)];
                             end
                             
-                            if ZDepth==Z_depth(1)
+                            if ZDepth==Z_depth(1) && TURN==Turni
                                 DSI_D_Z1=[DSI_D_Z1,Z(i)];
-                            elseif ZDepth==Z_depth(2)
+                            elseif ZDepth==Z_depth(2) && TURN==Turni
                                 DSI_D_Z2=[DSI_D_Z2,Z(i)];
+                            elseif ZDepth==Z_depth(3) && TURN==Turni
+                                DSI_D_Z3=[DSI_D_Z3,Z(i)];
                             end
                             
                         end
@@ -560,7 +639,7 @@ for NFlies=1:14
 end
 
 
-%% (Extended Data Fig.3c)
+%% (Extended Data Fig.4c)
 
 % plot the std (variance of angular preference [deg]) 
 colors=[ColorD;ColorC;ColorBII;ColorBI;ColorAII;ColorAI];

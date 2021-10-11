@@ -1,7 +1,8 @@
 
-function [F1,F2]= CompassPlot_Zdepth_8dirsEdge(cond, con_name, Average)
+function [F1,F2]= CompassPlot_Zdepth_8dirsEdge(cond, con_name, Average, Range)
 
-      
+
+
     Z_depth=[30,35,45,50,60,65,75,80];
     
     Z_A_color=[128,255,78;78,235,38;78,205,0;23,164,0;0,153,0;0,124,0;0,104,0;0,76,0]/255;
@@ -84,7 +85,11 @@ function [F1,F2]= CompassPlot_Zdepth_8dirsEdge(cond, con_name, Average)
     
     for N_depth=1:length(Z_depth)
         
-        Z_cond= averageDirectionVectors_Zdepth_8dirEdge(cond.T4T5_mb,Z_depth(N_depth));
+        if nargin>3
+            Z_cond= averageDirectionVectors_Zdepth_8dirEdge(cond.T4T5_mb(Range),Z_depth(N_depth));
+        else
+            Z_cond= averageDirectionVectors_Zdepth_8dirEdge(cond.T4T5_mb,Z_depth(N_depth));
+        end 
         
         
         
