@@ -1,5 +1,5 @@
 # DS_tuning_Henning
-This repository contains data and code shown in the manuscript Henning et al., 2021
+This repository contains data and code shown in the manuscript Henning et al., 2022 (Sci Adv., DOI: 10.1126/sciadv.abi7112)
 
 
 ## Code
